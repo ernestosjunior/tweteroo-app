@@ -1,11 +1,12 @@
 import { useState, createContext, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { signUpRequest } from "../services/api";
+import { signUpRequest, loadTweets } from "../services/api";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const [tweets, setTweets] = useState([]);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ export const AuthProvider = ({ children }) => {
 
       setUser(res.data);
       toast.success("Bem-vindo!");
+      loadTweets(toast, setTweets);
       return navigate("/");
     } catch (error) {
       return toast.error("Erro. Tente novamente!");

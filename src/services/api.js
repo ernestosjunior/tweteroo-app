@@ -4,8 +4,12 @@ export const api = axios.create({
   baseURL: "https://tweteroo-api.herokuapp.com",
 });
 
-export const loadTweets = async () => {
+export const loadTweets = async (toast, setTweets) => {
   const res = await api.get("/tweets");
+
+  if (!res.data) return toast.error("Erro ao carregas os tweets.");
+
+  setTweets(res.data);
 
   return res;
 };
