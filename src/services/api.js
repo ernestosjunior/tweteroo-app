@@ -5,19 +5,19 @@ export const api = axios.create({
 });
 
 export const loadTweets = async () => {
-  const { data } = await api.get("/tweets");
+  const res = await api.get("/tweets");
 
-  return data;
+  return res;
 };
 
 export const postTweet = async ({ username, twwet }) => {
-  const { data } = await api.post("/tweets", { username, twwet });
+  const res = await api.post("/tweets", { username, twwet });
 
-  return data;
+  return res;
 };
 
 export const signUpRequest = async ({ username, avatar }) => {
-  const { data } = await api.post("sign-up", { username, avatar });
+  const res = await api.post("sign-up", { username, avatar });
 
-  return data;
+  return res;
 };

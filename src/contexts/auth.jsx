@@ -12,13 +12,17 @@ export const AuthProvider = ({ children }) => {
   const isLogged = !!user;
 
   const signUp = async ({ username, avatar }) => {
-    const data = await signUpRequest({ username, avatar });
+    try {
+      const res = await signUpRequest({ username, avatar });
 
-    if (!data || !data.id) return toast.error("Credenciais inválidas!");
+      if (!res.data) return toast.error("Erro. Tente novamente!");
 
-    setUser(data);
-    toast.success("Bem-vindo!");
-    return navigate("/");
+      setUser(res.data);
+      toast.success("Bem-vindo!");
+      return navigate("/");
+    } catch (error) {
+      return toast.error("Erro. Tente novamente!");
+    }
   };
 
   return (
