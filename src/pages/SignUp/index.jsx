@@ -1,11 +1,10 @@
 import logo from "../../assets/logo.png";
-import styles from "./index.module.css";
 
 export const SignUp = () => {
   return (
-    <div class={styles.paginaInicial}>
+    <div className="initialPage">
       <h1>tweteroo</h1>
-      <div class={styles.form}>
+      <div className="form">
         <img src={logo} alt="Tweteroo" />
         <input type="text" placeholder="digite seu username" id="username" />
         <input
@@ -14,7 +13,7 @@ export const SignUp = () => {
           id="picture"
         />
       </div>
-      <button onclick="signUp()">enviar</button>
+      <button onClick={() => null}>enviar</button>
     </div>
   );
 };
