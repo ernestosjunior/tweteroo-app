@@ -1,4 +1,5 @@
 import { useState, createContext, useContext } from "react";
+import { signUpRequest } from "../services/api";
 
 export const AuthContext = createContext({});
 
@@ -7,7 +8,9 @@ export const AuthProvider = ({ children }) => {
 
   const isLogged = !!user;
 
-  const signUp = () => {};
+  const signUp = async ({ username, avatar }) => {
+    const data = await signUpRequest({ username, avatar });
+  };
 
   return (
     <AuthContext.Provider value={{ user, isLogged, signUp }}>
