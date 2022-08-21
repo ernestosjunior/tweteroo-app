@@ -14,8 +14,8 @@ export const loadTweets = async (toast, setTweets) => {
   return res;
 };
 
-export const postTweet = async ({ username, twwet }) => {
-  const res = await api.post("/tweets", { username, twwet });
+export const postTweet = async ({ username, tweet }) => {
+  const res = await api.post("/tweets", { username, tweet });
 
   return res;
 };
