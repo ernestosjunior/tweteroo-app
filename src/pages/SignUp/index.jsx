@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { faker } from "@faker-js/faker";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../contexts";
 
@@ -33,6 +34,16 @@ export const SignUp = () => {
           onChange={(e) => handleFields("avatar", e.target.value)}
         />
       </div>
+      <button
+        onClick={() =>
+          handleFields(
+            "username",
+            `@${faker.internet.userName().toLowerCase()}`
+          )
+        }
+      >
+        gerar username aleatório
+      </button>
       <button onClick={() => signUp({ username, avatar })}>enviar</button>
     </div>
   );

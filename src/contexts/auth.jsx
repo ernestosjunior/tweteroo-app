@@ -14,7 +14,10 @@ export const AuthProvider = ({ children }) => {
 
   const signUp = async ({ username, avatar }) => {
     try {
-      const res = await signUpRequest({ username, avatar });
+      const res = await signUpRequest({
+        username: username.replace("@", ""),
+        avatar,
+      });
 
       if (!res.data) return toast.error("Erro. Tente novamente!");
 
@@ -23,6 +26,9 @@ export const AuthProvider = ({ children }) => {
       loadTweets(toast, setTweets);
       return navigate("/");
     } catch (error) {
+      if (error.message.includes("500")) {
+        return toast.error("Username já existe. Utilize outro!");
+      }
       return toast.error("Erro. Tente novamente!");
     }
   };
