@@ -1,6 +1,14 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SignUp, Tweets } from "./pages";
-import { AuthProvider } from "./contexts";
+import { AuthProvider, useAuth } from "./contexts";
+
+function PrivateRoute({ children }) {
+  const { isLogged } = useAuth();
+
+  if (!isLogged) return <Navigate to="/sign-up" replace />;
+
+  return children;
+}
 
 function App() {
   return (
@@ -8,7 +16,14 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/" element={<Tweets />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <Tweets />
+              </PrivateRoute>
+            }
+          />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../contexts";
 
 export const Tweets = () => {
   const [tweet, setTweet] = useState("");
   const { newTweet, tweets } = useAuth();
+  const navigate = useNavigate();
 
   function escapeHtml(unsafe) {
     return unsafe
@@ -15,8 +17,16 @@ export const Tweets = () => {
       .replace(/'/g, "&#039;");
   }
 
+  function handleLogout() {
+    window.localStorage.removeItem("user");
+    navigate("/sign-up");
+  }
+
   return (
     <div className="tweetsPage">
+      <button class="logoutIcon" onClick={() => handleLogout()}>
+        sair
+      </button>
       <h1>tweteroo</h1>
       <div className="form">
         <img src={logo} alt="Tweteroo" />
@@ -36,9 +46,11 @@ export const Tweets = () => {
       </div>
       <div className="tweets">
         {!!tweets.length &&
-          tweets.map((tweet) => (
+          tweets.map(({ user, tweet }) => (
             <div class="tweet">
-              <div class="avatar">{/* <img src={tweet.avatar} /> */}</div>
+              <div class="avatar">
+                <img src={user.avatar} />
+              </div>
               <div class="content">
                 <div class="user">@{tweet.username}</div>
                 <div class="body">{escapeHtml(tweet.tweet)}</div>

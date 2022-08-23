@@ -7,7 +7,9 @@ export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [tweets, setTweets] = useState([]);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(
+    JSON.parse(window.localStorage.getItem("user")) || null
+  );
   const navigate = useNavigate();
 
   const isLogged = !!user;
@@ -22,6 +24,7 @@ export const AuthProvider = ({ children }) => {
       if (!res.data) return toast.error("Erro. Tente novamente!");
 
       setUser(res.data);
+      window.localStorage.setItem("user", JSON.stringify(res.data));
       toast.success("Bem-vindo!");
       loadTweets(toast, setTweets);
       return navigate("/");
