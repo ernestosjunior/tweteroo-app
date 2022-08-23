@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { useAuth } from "../../contexts";
+import { toast } from "react-hot-toast";
+import { loadTweets } from "../../services/api";
 
 export const Tweets = () => {
   const [tweet, setTweet] = useState("");
-  const { newTweet, tweets } = useAuth();
+  const { newTweet, tweets, setTweets } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!tweets.length) loadTweets(toast, setTweets);
+  }, []);
 
   function escapeHtml(unsafe) {
     return unsafe

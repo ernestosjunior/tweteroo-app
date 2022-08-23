@@ -51,14 +51,17 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isLogged, signUp, newTweet, tweets }}>
+    <AuthContext.Provider
+      value={{ user, isLogged, signUp, newTweet, tweets, setTweets }}
+    >
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
-  const { user, isLogged, signUp, newTweet, tweets } = useContext(AuthContext);
+  const { user, isLogged, signUp, newTweet, tweets, setTweets } =
+    useContext(AuthContext);
 
   return {
     user,
@@ -66,5 +69,6 @@ export const useAuth = () => {
     signUp,
     newTweet,
     tweets,
+    setTweets,
   };
 };
